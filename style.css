@@ -1,0 +1,90 @@
+/*
+ * Basic stylesheet for the ECE ePortfolio site.
+ *
+ * This file defines consistent styling for all pages in the static site.
+ * It sets a simple color palette, typography and layout rules to give
+ * the portfolio a professional yet approachable look. The navigation
+ * menu appears at the top of every page and the content is centered
+ * within a white card to improve readability.
+ */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+header {
+    background-color: #0d47a1; /* dark blue background */
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav li {
+    margin: 0 15px;
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+main {
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+footer {
+    background-color: #0d47a1;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9em;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px 0;
+}
+
+/* Icon styling to provide a consistent look for small illustrative icons across the site */
+.icon {
+    width: 80px;
+    height: auto;
+    display: block;
+    margin: 15px auto;
+}
+
+h1, h2, h3 {
+    color: #0d47a1;
+}
+
+blockquote {
+    border-left: 4px solid #0d47a1;
+    margin: 20px 0;
+    padding-left: 15px;
+    font-style: italic;
+    color: #555;
+}
