@@ -71,7 +71,7 @@ img {
 
 /* Icon styling to provide a consistent look for small illustrative icons across the site */
 .icon {
-    width: 80px;
+    width: 250px;
     height: auto;
     display: block;
     margin: 15px auto;
