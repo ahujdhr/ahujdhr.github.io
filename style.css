@@ -73,7 +73,9 @@ img {
 
 .icon {
     width: 400px !important;
-    border: 3px solid red;
+    margin: 0 auto;  /* Centers the icon horizontally */
+    display: block;
+
 }
 
 h1, h2, h3 {
