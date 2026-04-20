@@ -48,6 +48,18 @@
           simple MPC-style tracking controller that can follow the planned path
           and roll out the final motion policy in simulation.
         </p>
+        <p>
+          More specifically, each depth image provides a partial geometric view
+          of the scene from the robot's current pose. By projecting those depth
+          pixels outward through the camera model, I can estimate where surfaces
+          and obstacles lie in the environment and accumulate that information
+          over time as the agent moves. This creates a top-down map in which
+          cells can be labeled as free, occupied, or still uncertain depending
+          on what has been observed. That map then becomes the planning
+          representation used by the RRT algorithm, allowing the robot to
+          reason about where it can safely travel rather than planning directly
+          from raw images.
+        </p>
 
         <h3>Visuals</h3>
         <div class="project-gallery">
@@ -82,8 +94,16 @@
             />
           </figure>
           <figcaption>
-            A sequence of RGB-D observations showing the kinds of visual and
-            depth measurements the agent receives while exploring the scene.
+            A sequence of RGB-D observations showing the visual and depth
+            measurements the agent receives while exploring the scene. These
+            frames are not just screenshots: the RGB image provides scene
+            context, while the depth image gives a per-pixel estimate of how
+            far visible surfaces are from the camera. Using the camera pose and
+            intrinsic calibration, each depth frame can be projected into 3D,
+            converted into top-down coordinates, and accumulated across time to
+            estimate where obstacles exist and where open navigable space lies.
+            Repeating this process over multiple viewpoints is what allows the
+            occupancy map below to be constructed from local observations.
           </figcaption>
         </div>
 
@@ -93,9 +113,13 @@
             alt="Top-down occupancy map with RRT samples and candidate trajectories"
           />
           <figcaption>
-            Top-down occupancy map reconstructed from depth observations. The
-            plotted sample points lie in free space, and this toy example shows
-            three candidate trajectories considered during planning.
+            Top-down occupancy map reconstructed from the projected depth
+            observations. Occupied regions correspond to surfaces and obstacles
+            detected from the RGB-D stream, while the remaining traversable
+            regions define the free space available for planning. The plotted
+            sample points lie in that free space, and this toy example shows
+            three candidate trajectories considered during planning before
+            selecting a path toward the goal.
           </figcaption>
         </figure>
 
@@ -106,8 +130,12 @@
           />
           <figcaption>
             Top-down visualization of the selected trajectory with camera
-            frustums superimposed in the scene, illustrating how sensing and
-            motion are coupled during exploration.
+            frustums superimposed in the scene. This view highlights the link
+            between sensing and planning: the robot does not only move to reach
+            a goal, but also collects new observations from each pose along the
+            path. The frustums show the portions of the environment visible
+            from different viewpoints, helping explain how exploration improves
+            map coverage over time.
           </figcaption>
         </figure>
 
@@ -118,8 +146,11 @@
           />
           <figcaption>
             Initial MPC-style tracking controller formulation for following the
-            smoothed trajectory. This controller is intentionally simple and is
-            the main remaining component to implement for trajectory rollout.
+            smoothed trajectory. The idea is to optimize control inputs over a
+            short horizon so the robot stays close to the reference path while
+            keeping motion smooth and physically reasonable. This controller is
+            intentionally simple and is the main remaining component to
+            implement for full trajectory rollout and closed-loop navigation.
           </figcaption>
         </figure>
 
@@ -138,6 +169,27 @@
           controller design, which are all central technical themes in robotics
           and electrical and computer engineering.
         </p>
+        <h3>Future Improvements</h3>
+        <ul>
+          <li>
+            Complete the MPC-style tracking controller and evaluate how well it
+            follows smoothed trajectories under realistic motion constraints.
+          </li>
+          <li>
+            Improve the occupancy mapping stage by handling unknown space more
+            explicitly and reducing noise from imperfect depth observations.
+          </li>
+          <li>
+            Compare raw RRT, smoothed RRT, and other planning strategies such as RRT* to
+            better understand tradeoffs in path quality, computation time, and
+            robustness.
+          </li>
+          <li>
+            Extend the system to more complex scenes and longer exploration
+            tasks to study how mapping and trajectory tracking performance scale with
+            environment difficulty.
+          </li>
+        </ul>
       </section>
 
       <section class="project">
